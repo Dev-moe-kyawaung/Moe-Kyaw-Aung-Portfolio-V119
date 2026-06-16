@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moe Kyaw Aung Portfolio - Interactive Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            color: #f5f0e8;
+            line-height: 1.6;
+        }
+
+        .demo-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(184, 115, 51, 0.1), rgba(255, 159, 74, 0.05));
+            border-radius: 16px;
+            border: 1px solid rgba(184, 115, 51, 0.2);
+        }
+
+        .demo-header h1 {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #b87333, #ff9f4a, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .demo-header p {
+            font-size: 1.2rem;
+            color: #b8b8ba;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .demo-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: 2px solid #b87333;
+            background: linear-gradient(135deg, #b87333, #ff9f4a);
+            color: #0a0a0f;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 30px rgba(184, 115, 51, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .demo-section {
+            margin-bottom: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, #1a1a2e, #2a2a3e);
+            border-radius: 16px;
+            border: 1px solid rgba(184, 115, 51, 0.2);
+        }
+
+        .demo-section h2 {
+            font-size: 2rem;
+            color: #b87333;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px rgba(184, 115, 51, 0.3));
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #1a1a2e, #2a2a3e);
+            border: 1px solid rgba(184, 115, 51, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            border-color: #b87333;
+            box-shadow: 0 0 20px rgba(184, 115, 51, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-weight: 700;
+            color: #b87333;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .card-url {
+            word-break: break-all;
+            font-size: 0.85rem;
+            color: #8b8b8d;
+            margin-bottom: 12px;
+            font-family: 'Monaco', monospace;
+        }
+
+        .card-btn {
+            padding: 8px 16px;
+            background: #b87333;
+            color: #0a0a0f;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .card-btn:hover {
+            background: #ff9f4a;
+            box-shadow: 0 0 15px rgba(184, 115, 51, 0.5);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(184, 115, 51, 0.1), rgba(255, 159, 74, 0.05));
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(184, 115, 51, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff9f4a;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #b8b8ba;
+            font-size: 0.95rem;
+        }
+
+        .copy-btn {
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid #b87333;
+            color: #b87333;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #b87333;
+            color: #0a0a0f;
+        }
+
+        .email-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-family: 'Monaco', monospace;
+            font-size: 0.9rem;
+        }
+
+        .email-address {
+            color: #b87333;
+            font-weight: 600;
+        }
+
+        .link-item {
+            padding: 12px;
+            background: rgba(184, 115, 51, 0.1);
+            border-left: 3px solid #b87333;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .link-number {
+            color: #ff9f4a;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .link-url {
+            color: #b87333;
+            word-break: break-all;
+            font-family: 'Monaco', monospace;
+            font-size: 0.85rem;
+        }
+
+        .link-url:hover {
+            text-decoration: underline;
+        }
+
+        .demo-footer {
+            text-align: center;
+            padding: 40px;
+            background: rgba(184, 115, 51, 0.05);
+            border-radius: 16px;
+            border-top: 2px solid rgba(184, 115, 51, 0.2);
+            margin-top: 60px;
+        }
+
+        .demo-footer h3 {
+            color: #b87333;
+            margin-bottom: 20px;
+        }
+
+        .demo-footer p {
+            color: #b8b8ba;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+
+            .demo-section h2 {
+                font-size: 1.4rem;
+            }
+
+            .demo-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(90deg, transparent, rgba(184, 115, 51, 0.2), transparent);
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .demo-section {
+            animation: slideIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <!-- HEADER -->
+        <div class="demo-header">
+            <h1>⭐ Moe Kyaw Aung Portfolio V119 ⭐</h1>
+            <p>Senior Android Developer | 12+ Years Experience | Kotlin & Jetpack Specialist</p>
+            <div class="demo-buttons">
+                <a href="/moe-kyaw-aung-portfolio-v119.html" class="btn" target="_blank">📱 View Original Portfolio</a>
+                <a href="/moe-kyaw-aung-portfolio-enhanced-v119.html" class="btn" target="_blank">✨ View Enhanced Version</a>
+                <a href="https://github.com/Dev-moe-kyawaung" class="btn" target="_blank">🐙 GitHub Profile</a>
+            </div>
+        </div>
+
+        <!-- QUICK STATS -->
+        <div class="demo-section">
+            <h2><span class="section-icon">📊</span>Quick Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">12+</div>
+                    <div class="stat-label">Years of Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3K+</div>
+                    <div class="stat-label">Apps Built</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">122</div>
+                    <div class="stat-label">GitHub Repositories</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">82+</div>
+                    <div class="stat-label">Certifications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">43</div>
+                    <div class="stat-label">GitHub Accounts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEATURED PROJECTS -->
+        <div class="demo-section">
+            <h2><span class="section-icon">🚀</span>Featured Projects (6)</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">🎬 Video Player</div>
+                    <div class="card-url">github.com/moekyawaung-tech/video-player</div>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px;">Advanced streaming video player with adaptive bitrate and offline support</p>
+                    <button class="card-btn" onclick="window.open('https://github.com/moekyawaung-tech/video-player', '_blank')">View Code</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📊 Social Dashboard</div>
+                    <div class="card-url">github.com/moekyawaung-tech/social-dashboard</div>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px;">Real-time analytics dashboard with trending metrics</p>
+                    <button class="card-btn" onclick="window.open('https://github.com/moekyawaung-tech/social-dashboard', '_blank')">View Code</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🎮 Game Collection</div>
+                    <div class="card-url">github.com/moekyawaung-tech/game-collection</div>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px;">Interactive mini-games with smooth animations</p>
+                    <button class="card-btn" onclick="window.open('https://github.com/moekyawaung-tech/game-collection', '_blank')">View Code</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📱 PWA App</div>
+                    <div class="card-url">github.com/moekyawaung-tech/pwa-app</div>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px;">Progressive Web App with offline functionality</p>
+                    <button class="card-btn" onclick="window.open('https://github.com/moekyawaung-tech/pwa-app', '_blank')">View Code</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">💼 Job Portal</div>
+                    <div class="card-url">github.com/moekyawaung-tech/Job-Portal-App</div>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px;">Complete job matching platform with real-time features</p>
+                    <button class="card-btn" onclick="window.open('https://github.com/moekyawaung-tech/Job-Portal-App', '_blank')">View Code</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🛒 POS System</div>
+                    <div class="card-url">github.com/moekyawaung-tech/POS-Full-Version</div>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px;">Enterprise POS with inventory management</p>
+                    <button class="card-btn" onclick="window.open('https://github.com/moekyawaung-tech/POS-Full-Version', '_blank')">View Code</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- GITHUB ACCOUNTS COLLECTION -->
+        <div class="demo-section">
+            <h2><span class="section-icon">🐙</span>GitHub Accounts & Portfolios (43)</h2>
+            <p style="margin-bottom: 30px; color: #b8b8ba;">Diverse collection of GitHub accounts showcasing different specializations:</p>
+            <div style="columns: 2; column-gap: 30px;">
+                <div class="link-item"><div class="link-number">#1</div><div class="link-url">moekyawaung-china.github.io</div></div>
+                <div class="link-item"><div class="link-number">#2</div><div class="link-url">moekyawaung-developer.github.io</div></div>
+                <div class="link-item"><div class="link-number">#3</div><div class="link-url">moekyawaung-tech.github.io</div></div>
+                <div class="link-item"><div class="link-number">#4</div><div class="link-url">moekyawaung-cyber.github.io</div></div>
+                <div class="link-item"><div class="link-number">#5</div><div class="link-url">moekyawaung-bangkok.github.io</div></div>
+                <div class="link-item"><div class="link-number">#6</div><div class="link-url">moekyawaung-designer.github.io</div></div>
+                <div class="link-item"><div class="link-number">#7</div><div class="link-url">moekyawaung-senior.github.io</div></div>
+                <div class="link-item"><div class="link-number">#8</div><div class="link-url">moekyawaung-hack.github.io</div></div>
+                <div class="link-item"><div class="link-number">#9</div><div class="link-url">Moekyawaung-Development.github.io</div></div>
+                <div class="link-item"><div class="link-number">#10</div><div class="link-url">Moekyawaung-coder.github.io</div></div>
+                <div class="link-item"><div class="link-number">Primary</div><div class="link-url">Dev-moe-kyawaung (Main Account)</div></div>
+                <div class="link-item"><div class="link-number">+32 More</div><div class="link-url">See all on portfolio page</div></div>
+            </div>
+        </div>
+
+        <!-- LOVABLE WPA PROJECTS -->
+        <div class="demo-section">
+            <h2><span class="section-icon">🌐</span>Lovable WPA Projects (38)</h2>
+            <p style="margin-bottom: 30px; color: #b8b8ba;">Modern web applications built with Lovable platform:</p>
+            <div style="columns: 2; column-gap: 30px;">
+                <div class="link-item"><div class="link-number">#1</div><div class="link-url">moekyawaung.lovable.app</div></div>
+                <div class="link-item"><div class="link-number">#2</div><div class="link-url">dev-moekyawaung.lovable.app</div></div>
+                <div class="link-item"><div class="link-number">#3</div><div class="link-url">the-cv-palette.lovable.app</div></div>
+                <div class="link-item"><div class="link-number">#4</div><div class="link-url">happy-cv-creator.lovable.app</div></div>
+                <div class="link-item"><div class="link-number">#5</div><div class="link-url">moekyawaungmybio.lovable.app</div></div>
+                <div class="link-item"><div class="link-number">#6</div><div class="link-url">joy-codify-life.lovable.app</div></div>
+                <div class="link-item"><div class="link-number">#7</div><div class="link-url">cv-beacon.lovable.app</div></div>
+                <div class="link-item"><div class="link-number">#8</div><div class="link-url">moekyawaung-github.lovable.app</div></div>
+                <div class="link-item"><div class="link-number">#9</div><div class="link-url">profile-persuasion-hub.lovable.app</div></div>
+                <div class="link-item"><div class="link-number">#10</div><div class="link-url">color-code-chronicles.lovable.app</div></div>
+                <div class="link-item"><div class="link-number">+28 More</div><div class="link-url">See all on portfolio page</div></div>
+            </div>
+        </div>
+
+        <!-- EMAIL ADDRESSES -->
+        <div class="demo-section">
+            <h2><span class="section-icon">✉️</span>Professional Email Addresses (21)</h2>
+            <p style="margin-bottom: 30px; color: #b8b8ba;">Dedicated emails for different professional domains:</p>
+            <div>
+                <div class="email-item">
+                    <span class="email-address">moekyawaung@programmer.net</span>
+                    <button class="copy-btn" onclick="copyToClipboard('moekyawaung@programmer.net')">Copy</button>
+                </div>
+                <div class="email-item">
+                    <span class="email-address">moekyawaung@technologist.com</span>
+                    <button class="copy-btn" onclick="copyToClipboard('moekyawaung@technologist.com')">Copy</button>
+                </div>
+                <div class="email-item">
+                    <span class="email-address">moekyawaung@engineer.com</span>
+                    <button class="copy-btn" onclick="copyToClipboard('moekyawaung@engineer.com')">Copy</button>
+                </div>
+                <div class="email-item">
+                    <span class="email-address">moekyawaung@graphic-designer.com</span>
+                    <button class="copy-btn" onclick="copyToClipboard('moekyawaung@graphic-designer.com')">Copy</button>
+                </div>
+                <div class="email-item">
+                    <span class="email-address">moekyawaung@hackermail.com</span>
+                    <button class="copy-btn" onclick="copyToClipboard('moekyawaung@hackermail.com')">Copy</button>
+                </div>
+                <div class="email-item">
+                    <span class="email-address">moekyawaung@collector.org</span>
+                    <button class="copy-btn" onclick="copyToClipboard('moekyawaung@collector.org')">Copy</button>
+                </div>
+                <div class="email-item">
+                    <span class="email-address">moekyawaung@cybergal.com</span>
+                    <button class="copy-btn" onclick="copyToClipboard('moekyawaung@cybergal.com')">Copy</button>
+                </div>
+                <div class="email-item">
+                    <span class="email-address">moekyawaung@webname.com</span>
+                    <button class="copy-btn" onclick="copyToClipboard('moekyawaung@webname.com')">Copy</button>
+                </div>
+                <div class="email-item">
+                    <span class="email-address">moekyawaung@asia.com</span>
+                    <button class="copy-btn" onclick="copyToClipboard('moekyawaung@asia.com')">Copy</button>
+                </div>
+                <div class="email-item" style="margin-bottom: 0;">
+                    <span class="email-address">+ 12 more addresses</span>
+                    <a href="/moe-kyaw-aung-portfolio-v119.html#email-collection" style="color: #b87333; text-decoration: none;">View All →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOCIAL MEDIA LINKS -->
+        <div class="demo-section">
+            <h2><span class="section-icon">🌐</span>Social Media & Networks (13)</h2>
+            <p style="margin-bottom: 30px; color: #b8b8ba;">Connect with me across multiple platforms:</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <a href="https://github.com/Dev-moe-kyawaung" target="_blank" class="link-item" style="text-decoration: none; cursor: pointer;">
+                    <div class="link-number">🐙</div>
+                    <div class="link-url">GitHub - Dev-moe-kyawaung</div>
+                </a>
+                <a href="https://linkedin.com/in/moe-kyaw-aung-2653093a1" target="_blank" class="link-item" style="text-decoration: none;">
+                    <div class="link-number">💼</div>
+                    <div class="link-url">LinkedIn Profile</div>
+                </a>
+                <a href="https://gravatar.com/moekyawaung13721" target="_blank" class="link-item" style="text-decoration: none;">
+                    <div class="link-number">👤</div>
+                    <div class="link-url">Gravatar Profile</div>
+                </a>
+                <a href="https://www.youtube.com/channel/UCuTXUguZb4xjeL2nX8WJG" target="_blank" class="link-item" style="text-decoration: none;">
+                    <div class="link-number">📺</div>
+                    <div class="link-url">YouTube Channel</div>
+                </a>
+                <a href="https://bsky.app/profile/moekyawaung96.bsky.social" target="_blank" class="link-item" style="text-decoration: none;">
+                    <div class="link-number">🌐</div>
+                    <div class="link-url">Bluesky Profile</div>
+                </a>
+                <a href="https://www.tumblr.com/moekyawaung" target="_blank" class="link-item" style="text-decoration: none;">
+                    <div class="link-number">🎨</div>
+                    <div class="link-url">Tumblr Blog</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- CERTIFICATIONS -->
+        <div class="demo-section">
+            <h2><span class="section-icon">🏆</span>Certifications (82+)</h2>
+            <p style="margin-bottom: 30px; color: #b8b8ba;">Verified credentials across 9 major domains from Programming Hub:</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div class="link-item" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">⌨️</div>
+                    <div style="color: #b87333; font-weight: 700; margin-bottom: 5px;">Programming</div>
+                    <div style="color: #8b8b8d; font-size: 0.9rem;">13 Certificates</div>
+                </div>
+                <div class="link-item" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">🌐</div>
+                    <div style="color: #b87333; font-weight: 700; margin-bottom: 5px;">Web Dev</div>
+                    <div style="color: #8b8b8d; font-size: 0.9rem;">13 Certificates</div>
+                </div>
+                <div class="link-item" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">📱</div>
+                    <div style="color: #b87333; font-weight: 700; margin-bottom: 5px;">Mobile</div>
+                    <div style="color: #8b8b8d; font-size: 0.9rem;">7 Certificates</div>
+                </div>
+                <div class="link-item" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">🗄️</div>
+                    <div style="color: #b87333; font-weight: 700; margin-bottom: 5px;">Databases</div>
+                    <div style="color: #8b8b8d; font-size: 0.9rem;">6 Certificates</div>
+                </div>
+                <div class="link-item" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">🤖</div>
+                    <div style="color: #b87333; font-weight: 700; margin-bottom: 5px;">AI/ML</div>
+                    <div style="color: #8b8b8d; font-size: 0.9rem;">11 Certificates</div>
+                </div>
+                <div class="link-item" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">🔐</div>
+                    <div style="color: #b87333; font-weight: 700; margin-bottom: 5px;">Security</div>
+                    <div style="color: #8b8b8d; font-size: 0.9rem;">10 Certificates</div>
+                </div>
+                <div class="link-item" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">⛓️</div>
+                    <div style="color: #b87333; font-weight: 700; margin-bottom: 5px;">Blockchain</div>
+                    <div style="color: #8b8b8d; font-size: 0.9rem;">4 Certificates</div>
+                </div>
+                <div class="link-item" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">🛠️</div>
+                    <div style="color: #b87333; font-weight: 700; margin-bottom: 5px;">Software Eng</div>
+                    <div style="color: #8b8b8d; font-size: 0.9rem;">7 Certificates</div>
+                </div>
+                <div class="link-item" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">📈</div>
+                    <div style="color: #b87333; font-weight: 700; margin-bottom: 5px;">Business</div>
+                    <div style="color: #8b8b8d; font-size: 0.9rem;">11 Certificates</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACT INFO -->
+        <div class="demo-section">
+            <h2><span class="section-icon">📞</span>Contact Information</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div>
+                    <h3 style="color: #b87333; margin-bottom: 20px;">Primary Contact</h3>
+                    <p style="margin-bottom: 10px;"><strong>Email:</strong> moekyawaung@programmer.net</p>
+                    <p style="margin-bottom: 10px;"><strong>Phone:</strong> +95 9 889 000 889</p>
+                    <p style="margin-bottom: 0;"><strong>Location:</strong> Tachileik, Myanmar 🇲🇲 / Bangkok, Thailand 🇹🇭</p>
+                </div>
+
+                <div>
+                    <h3 style="color: #b87333; margin-bottom: 20px;">Professional Profiles</h3>
+                    <p style="margin-bottom: 10px;">GitHub: <a href="https://github.com/Dev-moe-kyawaung" target="_blank" style="color: #ff9f4a;">Dev-moe-kyawaung</a></p>
+                    <p style="margin-bottom: 10px;">LinkedIn: <a href="https://linkedin.com/in/moe-kyaw-aung-2653093a1" target="_blank" style="color: #ff9f4a;">Moe Kyaw Aung</a></p>
+                    <p style="margin-bottom: 0;">Gravatar: <a href="https://gravatar.com/moekyawaung13721" target="_blank" style="color: #ff9f4a;">moekyawaung13721</a></p>
+                </div>
+
+                <div>
+                    <h3 style="color: #b87333; margin-bottom: 20px;">Technologies</h3>
+                    <p style="margin-bottom: 10px;"><strong>Mobile:</strong> Kotlin, Jetpack Compose, MVVM</p>
+                    <p style="margin-bottom: 10px;"><strong>Backend:</strong> Firebase, REST APIs, Node.js</p>
+                    <p style="margin-bottom: 0;"><strong>DevOps:</strong> GitHub Actions, CI/CD Pipelines</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="demo-footer">
+            <h3>Ready to Collaborate?</h3>
+            <p>Explore the complete portfolio experience with all interactive features, animations, and sections.</p>
+            <div class="demo-buttons">
+                <a href="/moe-kyaw-aung-portfolio-v119.html" class="btn" target="_blank">📱 Original Design</a>
+                <a href="/moe-kyaw-aung-portfolio-enhanced-v119.html" class="btn" target="_blank">✨ Enhanced Design</a>
+            </div>
+            <p style="margin-top: 30px; font-size: 0.9rem;">All content from this demo is integrated into the complete portfolio websites above.</p>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied: ' + text);
+            });
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('/')) {
+                    e.preventDefault();
+                    window.location.href = this.getAttribute('href');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
